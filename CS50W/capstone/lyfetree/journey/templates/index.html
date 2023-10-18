@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Welcome to Your Lyfetree</h1>
+  
+  <div class="tree">
+    <ul>
+      {% for milestone in milestones %}
+        <li>
+          {{ milestone.title }}
+          <a href="{% url 'edit_milestone' milestone.id %}">Edit</a>
+          <a href="{% url 'delete_milestone' milestone.id %}">Delete</a>
+          {% if milestone.parent %}
+            <ul>
+              {% for child in milestone.parent.milestone_set.all %}
+                <li>{{ child.title }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <h2>Create New Milestone</h2>
+  <form id="create-milestone-form" data-milestone-id="0" method="post" action="{% url 'create_milestone' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create</button>
+  </form>
+
+  <h2>Rename Milestone</h2>
+  <form id="rename-milestone-form" data-milestone-id="{{ milestone.id }}" method="post" action="{% url 'edit_milestone' milestone.id %}">
+    {% csrf_token %}
+    <input type="text" name="title" value="{{ milestone.title }}">
+    <button type="submit">Rename</button>
+  </form>
+  
+  <h2>Change Milestone</h2>
+  <form id="change-description-form" data-milestone-id="{{ milestone.id }}" method="post" action="{% url 'edit_milestone' milestone.id %}">
+    {% csrf_token %}
+    <input type="text" name="description" value="{{ milestone.description }}">
+    <button type="submit">Change</button>
+  </form>
+
+  <!-- JavaScript for Form Submissions -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      // Create Milestone
+      $('#create-milestone-form').on('submit', function(event) {
+        // ... (previous code)
+      });
+
+      // Rename Milestone
+      $('#rename-milestone-form').on('submit', function(event) {
+        // ... (previous code)
+      });
+
+      // Change Milestone Description
+      $('#change-description-form').on('submit', function(event) {
+        // ... (previous code)
+      });
+    });
+  </script>
+{% endblock %}

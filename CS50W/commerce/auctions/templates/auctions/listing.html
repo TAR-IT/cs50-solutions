@@ -1,0 +1,66 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+  <h2>{{ listing.title }}</h2>
+
+  <img src="{{ listing.image_url }}" alt="Product Image">
+
+  <p><strong>Description:</strong> {{ listing.description }}</p>
+  <p><strong>Starting Bid:</strong> ${{ listing.start_bid }}</p>
+  
+  {% if highest_bid %}
+    <p><strong>Highest Bid:</strong> ${{ highest_bid }}</p>
+  {% else %}
+    <p><strong>Highest Bid:</strong> None</p>
+  {% endif %}
+
+  {% if listing.is_closed and listing.winner and user.is_authenticated %}
+    <p>Winner: {{ listing.winner.username }}</p>
+{% endif %}
+
+  {% if user.is_authenticated %}
+    {% if user == listing.seller %}
+      {% if not listing.is_closed %}
+        <form method="post" action="{% url 'close_auction' listing.id %}">
+          {% csrf_token %}
+          <button type="submit">Close Auction</button>
+        </form>
+      {% endif %}
+    {% else %}
+      <form method="post" action="{% url 'add_to_watchlist' listing.id %}">
+        {% csrf_token %}
+        <button type="submit">Add to Watchlist</button>
+      </form>
+      <form method="post">
+        {% csrf_token %}
+        {{ bid_form.as_p }}
+        <button type="submit">Place Bid</button>
+      </form>
+    {% endif %}
+  {% endif %}
+
+  <h3>Comments</h3>
+  <ul>
+    {% for comment in comments %}
+      <li>{{ comment.content }} by {{ comment.commenter.username }}</li>
+    {% endfor %}
+  </ul>
+
+  {% if user.is_authenticated and request.method == 'POST' %}
+    <form method="post">
+      {% csrf_token %}
+      {{ comment_form.as_p }}
+      <button type="submit">Submit Comment</button>
+    </form>
+  {% elif user.is_authenticated %}
+    <form method="post">
+      {% csrf_token %}
+      <label for="comment_text">Add a Comment:</label>
+      <textarea name="comment_text"></textarea>
+      <button type="submit">Submit Comment</button>
+    </form>
+  {% else %}
+    <p>You must be logged in to leave a comment.</p>
+  {% endif %}
+
+{% endblock %}

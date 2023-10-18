@@ -1,0 +1,6 @@
+    # (DE)CHORDIFY
+    #### Video Demo:  <URL HERE>
+    #### Description: This program is meant to be a little help with learning to play instruments and understanding music theory mathematically.
+    ####              It lets the user break down keys/chords into their corresponding notes and even get the corresponding chords to notes they choose.
+    ####              To use the program the user has to decide if he wants to "chordify, "dechordify" or "dekeyify". The program will guide the user through.
+    ####              The program does not mathematically calculate the notes/chords, but instead just refer to a python list that it is provided with.

@@ -1,0 +1,132 @@
+textarea {
+    min-height: 400px;
+}
+
+.email {
+    border: 1px solid #ccc;
+    margin: 10px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.email-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.email-item.unread {
+    background-color: #fff;
+}
+
+.email-item.read {
+    background-color: #f0f0f0;
+}
+
+
+/* Global styles */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header styles */
+
+h2 {
+    color: #333;
+}
+
+/* Navigation buttons styles */
+
+.btn {
+    margin-right: 10px;
+}
+
+/* Email list styles */
+
+#emails-view {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.email-box {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.email-box:hover {
+    background-color: #f9f9f9;
+}
+
+.email-box.read {
+    background-color: #f0f0f0;
+}
+
+/* Compose email styles */
+
+#compose-view {
+    display: none;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+#compose-subject,
+#compose-recipients {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+#compose-body {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+/* Reply button styles */
+
+.reply-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.reply-button:hover {
+    background-color: #0056b3;
+}
+
+/* Logout button styles */
+
+.logout-button {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.logout-button:hover {
+    background-color: #c82333;
+}
