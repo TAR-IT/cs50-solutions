@@ -3,12 +3,26 @@
 {% block title %}Lyfetree | Register{% endblock %}
 
 {% block content %}
-<form method="post">
-    {% csrf_token %}
-    {{ form.username.label_tag }} {{ form.username }}
-    {{ form.email.label_tag }} {{ form.email }}
-    {{ form.password1.label_tag }} {{ form.password1 }}
-    {{ form.password2.label_tag }} {{ form.password2 }}
-    <button type="submit">Register</button>
+{% if message %}
+<div>{{ message }}</div>
+{% endif %}
+
+<form action="{% url 'register' %}" method="post">
+{% csrf_token %}
+<div class="form-group">
+    <input class="form-control" autofocus type="text" name="username" placeholder="Username">
+</div>
+<div class="form-group">
+    <input class="form-control" type="email" name="email" placeholder="Email Address">
+</div>
+<div class="form-group">
+    <input class="form-control" type="password" name="password" placeholder="Password">
+</div>
+<div class="form-group">
+    <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
+</div>
+<input class="btn btn-primary" type="submit" value="Register">
 </form>
+
+Already have an account? <a href="{% url 'login' %}">Log In here.</a>
 {% endblock %}

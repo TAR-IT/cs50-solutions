@@ -25,5 +25,8 @@ urlpatterns = [
     path("register/", views.register_view, name="register"),
     path("logout/", views.logout_view, name="logout"),
     path("", views.index_view, name="index"),
-    path("diary/", views.diary_view, name="diary"),
+    path('edit_entry/<int:entry_id>/', views.edit_entry, name='edit_entry'),
+    path('favourize_entry/<int:entry_id>/', views.favourize_entry, name='favourize_entry'),
+    path('add_comment/<int:entry_id>/', views.add_comment, name='add_comment'),
+    path('delete_entry/<int:entry_id>/', views.delete_entry, name='delete_entry'),
 ]
