@@ -1,0 +1,51 @@
+name: Continous integration test suite
+
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: [3.11]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Upgrade pip and pipenv
+        run: pip install --upgrade pip && pip install pipenv && pip install --upgrade pipenv
+        working-directory: /
+
+      - name: Install dependencies
+        run: pipenv install --deploy
+
+      - name: Run Django server in background and start tests
+        env:
+          # Using GitHub repository security variables for testing
+          ALLOWED_HOSTS: ${{ secrets.ALLOWED_HOSTS }}
+          DB_ENGINE: ${{ secrets.DB_ENGINE }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DEBUG: ${{ secrets.DEBUG }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        run: |
+          pipenv run python manage.py makemigrations
+          pipenv run python manage.py migrate
+          pipenv run python manage.py runserver &
+          pipenv run python manage.py test
+
+      - name: quit Django server
+        run: pkill -f "python manage.py runserver"
+        working-directory: /
+        if: always()

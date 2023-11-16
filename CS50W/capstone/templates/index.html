@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Lyfetree | Home{% endblock %}
+
+{% block content %}
+    <div class="jumbotron">
+        <div class="container">
+            {% if user.is_authenticated %}
+                <h2>Welcome, {{ user.username }}</h2>
+                <p>Let's get to your <a href="{% url 'journey' %}" class="btn btn-primary">Journey</a>.</p>
+            {% else %}
+                <h2>Welcome to Lyfetree! Start growing your Lyfetree today.</h2>
+                <p>Let's begin your <a href="{% url 'register' %}" class="btn btn-success">Journey</a>.</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Lyfetree | Home{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+
+        <h2>Welcome, {{ user.username }}</h2>
+
+        <form id="create-milestone-form" method="post" class="my-4">
+            {% csrf_token %}
+            <div class="form-group">
+                <textarea id="milestone-title" name="title" rows="1" cols="20" class="form-control" placeholder="Title"></textarea>
+            </div>
+            <div class="form-group">
+                <textarea id="milestone-content" name="content" rows="4" cols="50" class="form-control" placeholder="Content"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">
+                Create Entry
+            </button>
+        </form>   
+
+        <h3>Your Journey:</h3>
+        <ul id="milestone-section" class="list-group">
+            {% for milestone in user_milestones reversed %}
+                <li class="list-group-item">
+                    <h4>{{ milestone.title }}</h4>
+                    <p>{{ milestone.content }}</p>
+                    <p>Milestone created at {{ milestone.date_created }} and last changed at {{ milestone.date_last_changed }}</p>
+                </li>
+            {% empty %}
+                <p>No milestones yet.</p>
+            {% endfor %}
+        </ul>
+        
+    {% else %}
+
+        <h2>Welcome to Lyfetree! Start growing your Lyfetree today.</h2>
+        <p>Let's begin your <a href="{% url 'register' %}" class="btn btn-success">Journey</a>.</p>
+
+    {% endif %}
+</body>
+{% endblock %}
