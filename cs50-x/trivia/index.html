@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <script>
+        function checkAnswer(button) {
+            const correctAnswer = "Berlin";
+            const userAnswer = button.textContent;
+
+            if (userAnswer === correctAnswer) {
+                button.classList.add("correct");
+                displayResult("Correct!", button);
+            } else {
+                button.classList.add("incorrect");
+                displayResult("Incorrect", button);
+            }
+
+            // Disable other buttons after an answer is selected
+            const allButtons = document.querySelectorAll('.mc-option');
+            allButtons.forEach((btn) => {
+                btn.disabled = true;
+            });
+        }
+
+        function checkFreeResponse() {
+            const correctAnswer = "blue whale";
+            const frAnswerField = document.getElementById('fr-answer');
+            const submitButton = document.getElementById('fr-submit');
+
+            if (frAnswerField.disabled) {
+                // Answer already submitted, do nothing
+                return;
+            }
+
+            const userAnswer = frAnswerField.value;
+
+            if (userAnswer.toLowerCase() === correctAnswer) {
+                frAnswerField.classList.add("correct");
+                displayResult("Correct!", document.getElementById('fr-question'));
+            } else {
+                frAnswerField.classList.add("incorrect");
+                displayResult("Incorrect", document.getElementById('fr-question'));
+            }
+
+            // Disable the text field and submit button after submitting the answer
+            frAnswerField.disabled = true;
+            submitButton.disabled = true;
+        }
+
+        function displayResult(result, element) {
+            const resultDiv = document.createElement('div');
+            resultDiv.textContent = result;
+            resultDiv.classList.add(result.toLowerCase());
+
+            // Append result directly beneath the corresponding question
+            element.parentNode.appendChild(resultDiv);
+        }
+    </script>
+    <title>Trivia!</title>
+</head>
+<body>
+    <div class="header">
+        <h1>Trivia!</h1>
+    </div>
+
+    <div class="container">
+        <div class="section">
+            <h2>Part 1: Multiple Choice </h2>
+            <hr>
+            <h3 id="mc-question">What is the capital of Germany?</h3>
+            <button class="mc-option" onclick="checkAnswer(this)">Berlin</button>
+            <button class="mc-option" onclick="checkAnswer(this)">Amsterdam</button>
+            <button class="mc-option" onclick="checkAnswer(this)">Madrid</button>
+        </div>
+
+        <div class="section">
+            <h2>Part 2: Free Response</h2>
+            <hr>
+            <h3 id="fr-question">What is the largest mammal on Earth?</h3>
+            <input type="text" id="fr-answer">
+            <button id="fr-submit" onclick="checkFreeResponse()">Submit</button>
+        </div>
+    </div>
+</body>
+</html>

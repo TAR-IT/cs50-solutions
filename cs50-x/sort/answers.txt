@@ -1,0 +1,11 @@
+sort1 uses: Bubble Sort
+
+How do you know?: Sort1 consistently took a long time on all types of input (e.g., 15 seconds for sorted, reversed, and shuffled), which suggests it's Bubble Sort.
+
+sort2 uses: Merge Sort
+
+How do you know?: Sort2 performed well on all types of input, with consistent low execution times (e.g., 0.5 seconds), indicating it's Merge Sort.
+
+sort3 uses: Selection Sort
+
+How do you know?: When running sort3 on a sorted list, it took the longest time (e.g., 10 seconds), indicating that it's likely using Selection Sort.
