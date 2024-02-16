@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}iDiary| Home{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <h2>Welcome, {{ user.username }}</h2>
+    {% else %}
+        <h2>Welcome to iDiary! Start writing your Diary todayy.</h2>
+        <p>Let's begin with your first <a href="{% url 'register' %}">Entry</a>.</p>
+    {% endif %}
+</body>
+{% endblock %}

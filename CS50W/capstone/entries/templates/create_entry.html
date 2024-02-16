@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Create Diary Entry{% endblock %}
+
+{% block content %}
+    <h1>Create a New Diary Entry</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit" class="btn btn-primary">Create Diary Entry</button>
+    </form>
+    
+    <a href="{% url 'journey' %}" class="btn btn-secondary">Back to my diary</a>
+{% endblock %}
