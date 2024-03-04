@@ -18,10 +18,10 @@ def convert(fraction):
         x = int(x)
         y = int(y)
         # Raise exception if dividing by zero or fraction > 1
-        if x > y:
-            raise ValueError
         if y == 0:
             raise ZeroDivisionError
+        elif x > y:
+            raise ValueError
         # Turn fraction into decimal number
         decimal = x / y
         # Turn decimal number into rounded percentage

@@ -7,28 +7,14 @@ def test_valid_input():
     assert convert("99/100") == 99
 
 def test_invalid_input():
-    try:
-        convert("150/100")
-        assert False
-    except ValueError:
-        pass
-
-    try:
+    with pytest.raises(ValueError):
+        convert("150/100") 
+    with pytest.raises(ZeroDivisionError):
         convert("50/0")
-        assert False
-    except ZeroDivisionError:
-        pass
-
-    try:
+    with pytest.raises(ValueError):
         convert("cat")
-        assert False
-    except ValueError:
-        pass
-    try:
+    with pytest.raises(ValueError):
         convert(",.?!")
-        assert False
-    except ValueError:
-        pass
 
 
 def test_gauge():
