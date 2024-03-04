@@ -1,12 +1,34 @@
+import sys
+
+def main():
+    while True:
+        fraction_str = input("Input: ")
+        try:
+            percentage = convert(fraction_str)
+            result = gauge(percentage)
+            print(result)
+            break
+        except ValueError as e:
+            print(e)
+
 def convert(fraction):
     try:
-        x, y = map(int, fraction.split('/'))
-        if y == 0 or x > y:
+        # Split fraction to x and y
+        x, y = fraction.split("/")
+        x = int(x)
+        y = int(y)
+        # Raise exception if dividing by zero or fraction > 1
+        if x > y:
             raise ValueError
-        fuel_percentage = (x / y) * 100
-        return round(fuel_percentage)
-    except (ValueError, ZeroDivisionError):
-        raise ValueError("Invalid input format. Fraction should be in X/Y format with X and Y integers.")
+        if y == 0:
+            raise ZeroDivisionError
+        # Turn fraction into decimal number
+        decimal = x / y
+        # Turn decimal number into rounded percentage
+        percentage = "{:.0f}".format(decimal * 100)
+        return int(percentage)
+    except ValueError:
+        raise ValueError("Invalid input format. Fraction should equal less than 1. Do not divide by zero.")
 
 
 def gauge(percentage):
@@ -16,18 +38,6 @@ def gauge(percentage):
         return "F"
     else:
         return f"{percentage}%"
-
-
-def main():
-    while True:
-        fraction_str = input("Enter the fuel fraction (X/Y): ")
-        try:
-            percentage = convert(fraction_str)
-            result = gauge(percentage)
-            print(result)
-            break
-        except ValueError as e:
-            print(e)
 
 
 if __name__ == "__main__":

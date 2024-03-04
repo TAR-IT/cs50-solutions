@@ -1,43 +1,39 @@
-import fuel
+from fuel import convert, gauge
+import pytest
 
+def test_valid_input():
+    assert convert("1/3") == 33
+    assert convert("1/100") == 1
+    assert convert("99/100") == 99
 
-def test_convert_valid_input():
-    assert fuel.convert("1/4") == 25
-    assert fuel.convert("1/2") == 50
-    assert fuel.convert("3/4") == 75
-    assert fuel.convert("2/3") == 67
-
-
-def test_convert_invalid_input():
+def test_invalid_input():
     try:
-        fuel.convert("3/0")
-        assert False, "Expected ZeroDivisionError"
-    except ZeroDivisionError:
-        pass
-
-    try:
-        fuel.convert("3/a")
-        assert False, "Expected ValueError"
+        convert("150/100")
+        assert False
     except ValueError:
         pass
 
     try:
-        fuel.convert("4/3")  # X is greater than Y
-        assert False, "Expected ValueError"
+        convert("50/0")
+        assert False
+    except ZeroDivisionError:
+        pass
+
+    try:
+        convert("cat")
+        assert False
+    except ValueError:
+        pass
+    try:
+        convert(",.?!")
+        assert False
     except ValueError:
         pass
 
 
 def test_gauge():
-    assert fuel.gauge(0) == "E"
-    assert fuel.gauge(1) == "E"
-    assert fuel.gauge(98) == "98%"
-    assert fuel.gauge(99) == "F"
-    assert fuel.gauge(100) == "F"
 
+    assert gauge(1) == "E"
+    assert gauge(99) == "F"
+    assert gauge(45) == "45%"
 
-if __name__ == "__main__":
-    test_convert_valid_input()
-    test_convert_invalid_input()
-    test_gauge()
-    print("All tests passed.")
